@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickNotes</title>
+  <style>
+    :root {
+      --bg: #f6f5f2;
+      --card: #ffffff;
+      --ink: #1c1b1a;
+      --muted: #6b6864;
+      --accent: #d97757;
+      --accent-ink: #ffffff;
+      --border: #ece9e4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    header {
+      padding: 48px 24px 24px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.25rem;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    header p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+    }
+    form.add-note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    form.add-note input, form.add-note textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      margin-bottom: 10px;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    form.add-note textarea { min-height: 70px; resize: vertical; }
+    form.add-note button {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    form.add-note button:hover { opacity: 0.9; }
+    .note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .note h3 {
+      margin: 0 0 6px;
+      font-size: 1.05rem;
+    }
+    .note p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      padding: 24px;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>QuickNotes</h1>
+    <p>A tiny place to jot things down.</p>
+  </header>
+  <main>
+    <form class="add-note" method="POST" action="/notes">
+      <input type="text" name="title" placeholder="Title" required>
+      <textarea name="body" placeholder="Write something..." required></textarea>
+      <button type="submit">Add note</button>
+    </form>
+
+    {% for note in notes %}
+    <div class="note">
+      <h3>{{ note.title }}</h3>
+      <p>{{ note.body }}</p>
+    </div>
+    {% endfor %}
+  </main>
+  <footer>
+    <a href="/health">status</a>
+  </footer>
+</body>
+</html>
